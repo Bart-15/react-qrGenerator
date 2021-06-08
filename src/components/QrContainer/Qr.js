@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import QRCode from 'qrcode.react'
 import {Container, Typography, TextField, CssBaseline } from '@material-ui/core'
+import {FcDownload} from 'react-icons/fc'
 import useStyles from './styles'
 const Qr = () => {
     const classes = useStyles();
@@ -12,7 +13,7 @@ const Qr = () => {
         fullAddress: ''
     })
 
-
+    //Handle the event
     function handleChange(evt) {
 
         const value = evt.target.value;
@@ -20,6 +21,40 @@ const Qr = () => {
             ...info,
             [evt.target.name] : value
         })
+    }
+
+
+    //Download the qr
+    const downloadQr = () => {
+        const canvas = document.getElementById("generatedQr");
+        // console.log(canvas);
+
+        const pngUrl = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream")
+
+        let downloadLink = document.createElement("a");
+        downloadLink.href = pngUrl;
+        downloadLink.download = "yourQr.png";
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        console.log(pngUrl)
+    }
+
+
+    //Component 
+    const QrcodeContainer = () => {
+        return (
+            <>
+                <QRCode id="generatedQr" value={`[{
+                    name: ${info.fullName},
+                    email: ${info.email},
+                    mobile: ${info.mobile},
+                    address: ${info.fullAddress}
+                }]` } />
+                <FcDownload onClick={downloadQr} size={40} style={{marginTop:'10px'}}/>
+                <Typography variant='h5'>Scan the qr code here</Typography>
+            </>
+        )
     }
 
     // let name = "Bart Tabusao"
@@ -39,9 +74,8 @@ const Qr = () => {
                         </div>
                     </form>
                     {
-                        !info.fullName ?  'wala' :  <QRCode value={`Name: ${info.fullName} \n Email: ${info.email} \n MobileNumber: ${info.mobile} \n FullAddress: ${info.fullAddress}` } />
+                        !info.fullName ?  'wala' : <QrcodeContainer />  
                     }
-                   
                 </div>
             </Container>
         </>
