@@ -34,7 +34,7 @@ const styles = makeStyles((theme) => ({
             justifyContent:'space-around',
         },
         btn : {
-            fontSize:'40px',
+            fontSize:'35px',
         }
     }
 }));

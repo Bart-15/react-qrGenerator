@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import QRCode from 'qrcode.react'
-import {Container, Typography, TextField, CssBaseline } from '@material-ui/core'
-import {FcDownload} from 'react-icons/fc'
+import {Container, Typography, TextField, CssBaseline, Button } from '@material-ui/core'
+import {FcDownload,IoChevronBack} from 'react-icons/all'
+import {Link} from 'react-router-dom'
 import useStyles from './styles'
 const Qr = () => {
     const classes = useStyles();
@@ -45,14 +46,8 @@ const Qr = () => {
     const QrcodeContainer = () => {
         return (
             <>
-                <QRCode id="generatedQr" value={`[{
-                    name: ${info.fullName},
-                    email: ${info.email},
-                    mobile: ${info.mobile},
-                    address: ${info.fullAddress}
-                }]` } />
-                <FcDownload onClick={downloadQr} size={40} style={{marginTop:'10px'}}/>
-                <Typography variant='h5'>Scan the qr code here</Typography>
+                <QRCode id="generatedQr" value={`Name: ${info.fullName} \n Email: ${info.email} \n Mobile: ${info.mobile} \n Address: ${info.fullAddress}`} />
+                <FcDownload onClick={downloadQr} size={40} style={{marginTop:'10px', cursor:'pointer'}}/>
             </>
         )
     }
@@ -61,10 +56,10 @@ const Qr = () => {
     // let lastName = "Hello"  
     return (
         <>
-            <Container>
+            <Container className={classes.root}>
             <CssBaseline />
                 <div className={classes.qrContainer}>
-                    <Typography variant="h5">Generate Qr code here</Typography>
+                    <Button className={classes.btn} component={Link} to="/"><IoChevronBack size={40}/></Button>
                     <form className={classes.formRoot}>
                          <TextField type="text" name='fullName' value={info.fullName} onChange={handleChange} label="Full Name" variant="outlined" />
                          <TextField type="email" name='email' value={info.email}  onChange={handleChange} label="Email Address" variant="outlined" />
@@ -74,7 +69,7 @@ const Qr = () => {
                         </div>
                     </form>
                     {
-                        !info.fullName ?  'wala' : <QrcodeContainer />  
+                        !info.fullName ?  <Typography variant="h4">No QR</Typography> : <QrcodeContainer />  
                     }
                 </div>
             </Container>
