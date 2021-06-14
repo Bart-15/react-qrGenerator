@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import QrScan from 'react-qr-reader'
-import {Container, Button, TextareaAutosize} from '@material-ui/core'
+import {Container, Button, TextField} from '@material-ui/core'
 import {IoChevronBack, RiQrScan2Line, } from 'react-icons/all'
 import {Link} from 'react-router-dom'
 import useStyles from './styles'
@@ -14,7 +14,8 @@ const QrScanner = () => {
 
     const handleScan = (data) => {
         if(data) {
-            setResult(data)
+            const finalData = data.replace(/[\r\n\s]+/gm, '');
+            setResult(finalData)
         }
     }
 
@@ -31,8 +32,15 @@ const QrScanner = () => {
                 style={{height:350, width: 350}} 
                 onError={handleError}
                 onScan={handleScan}/>
-            <TextareaAutosize style={{marginTop:'20px', fontSize:'20px'}} value={results}  rowsMin={3} aria-label="empty textarea" />
-    
+              <TextField
+              style={{marginTop:'20px', width:'100%'}}
+              id="outlined-multiline-static"
+              label="Result"
+              multiline
+              value={results}
+              rows={5}
+              variant="outlined"
+            />
           </Container>
         </>
         

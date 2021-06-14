@@ -3,7 +3,7 @@ import {makeStyles} from '@material-ui/core/styles'
 const styles = makeStyles((theme) => ({
 
     root : {
-        height:'70vh',
+        height:'100vh',
         display:'flex',
         flexDirection:'column',
         alignItems:'center',
@@ -26,8 +26,13 @@ const styles = makeStyles((theme) => ({
 
     header : {
         display:'flex'
-    }
+    },
 
+    [theme.breakpoints.up('lg')] : {
+        root : {
+            height:'80vh'
+        }
+    }
 
     
 }));

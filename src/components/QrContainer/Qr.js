@@ -38,7 +38,7 @@ const Qr = () => {
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
-        console.log(pngUrl)
+        // console.log(pngUrl)
     }
 
 
@@ -46,7 +46,7 @@ const Qr = () => {
     const QrcodeContainer = () => {
         return (
             <>
-                <QRCode id="generatedQr" value={`Name: ${info.fullName} \n Email: ${info.email} \n Mobile: ${info.mobile} \n Address: ${info.fullAddress}`} />
+                <QRCode id="generatedQr" value={`Name:${info.fullName}, Email:${info.email}, Mobile:${info.mobile}, Address:${info.fullAddress}`} />
                 <FcDownload onClick={downloadQr} size={40} style={{marginTop:'10px', cursor:'pointer'}}/>
             </>
         )
